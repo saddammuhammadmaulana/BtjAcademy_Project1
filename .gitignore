@@ -1,0 +1,33 @@
+.dev.env
+.prod.env
+
+__psycache__/
+.venv
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# VSCode / IDE
+.vscode/
+.idea/
+
+# Environment files
+*.env
+.dev.env
+.prod.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
