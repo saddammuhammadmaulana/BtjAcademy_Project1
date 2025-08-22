@@ -26,9 +26,9 @@ GITHUB_API=
 uvicorn main:app --reload
 
 
-Docs: http://127.0.0.1:8000/docs
+Docs: http://127.0.0.1:8080/docs
 
-Redoc: http://127.0.0.1:8000/redoc
+Redoc: http://127.0.0.1:8080/redoc
 
 ## Endpoint
 
