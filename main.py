@@ -1,3 +1,7 @@
+from fastapi import FastAPI
+from api.predict.views import predict_router
+from api.scheduler.views import scheduler_router
+
 import os
 from dotenv import load_dotenv
 from fastapi import FastAPI, Query
@@ -5,27 +9,24 @@ from typing import Union, List
 import statistics
 import math
 
-load_dotenv(dotenv_path='.dev.env')
-api_key = os.getenv("GITHUB_API")
+app = FastAPI(title="TEST PROJECT 1")
 
-app = FastAPI(title='Test Project 1')
+# register routers
+app.include_router(predict_router)
+app.include_router(scheduler_router)
 
 @app.get("/")
 def read_root():
     return {"message": "Hello World, welcome to Test Project 1!"}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-# predict kalkulasi sederhana
-@app.get("/predict/")
-def predict(
+# predict logic sederhana
+@app.get("/predict1/")
+def predict1(
     data_id: int,
     val: List[float] = Query(...)
 ):
     if not val:
-        return {"error": "val must not be empty"}
+        return {"error": "val harus diisi!"}
 
     avg = statistics.mean(val)
     med = statistics.median(val)
@@ -48,7 +49,7 @@ def calc_distance(x: float, y: float):
     dist = math.sqrt(x**2 + y**2)
     return {
         "point": (x, y),
-        "euclidean_distance_from_origin": dist
+        "jarak euclid (phytagoras)": dist
     }
 
 # regresi linear sederhana
@@ -58,7 +59,7 @@ def linear_regression(
     y: List[float] = Query(...),
     predict_x: Union[float, None] = None):
     if len(x) != len(y) or len(x) == 0:
-        return {"error": "x and y must have same length and not be empty"}
+        return {"error": "x dan y harus punya panjang data yang sama!"}
 
     x_mean = statistics.mean(x)
     y_mean = statistics.mean(y)
